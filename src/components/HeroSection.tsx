@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Terminal, Shield, Cpu, ChevronDown } from 'lucide-react';
 import { Button } from './ui/button';
@@ -8,9 +9,46 @@ const HeroSection = () => {
     document.getElementById('register')?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  // ⏳ Countdown Timer (Feb 14)
+  const targetDate = new Date('2026-02-14T00:00:00');
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const now = new Date().getTime();
+      const diff = targetDate.getTime() - now;
+
+      if (diff <= 0) {
+        clearInterval(timer);
+        setTimeLeft({
+          days: 0,
+          hours: 0,
+          minutes: 0,
+          seconds: 0,
+        });
+        return;
+      }
+
+      setTimeLeft({
+        days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((diff / (1000 * 60)) % 60),
+        seconds: Math.floor((diff / 1000) % 60),
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden matrix-bg">
-      {/* Background Video */}
+      {/* 🎥 Background Video */}
       <div className="absolute inset-0 z-10">
         <video
           autoPlay
@@ -23,8 +61,8 @@ const HeroSection = () => {
         </video>
         <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background" />
       </div>
-      
-      {/* Content */}
+
+      {/* 🧠 Content */}
       <div className="relative z-20 text-center px-4 max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -54,10 +92,37 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-lg md:text-xl text-muted-foreground mb-4 max-w-2xl mx-auto"
+          className="text-lg md:text-xl text-muted-foreground mb-4"
         >
           A 2-Day Hands-On Linux Workshop
         </motion.p>
+
+        {/* ⏳ COUNTDOWN TIMER */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.45 }}
+          className="flex justify-center gap-4 mb-8"
+        >
+          {[
+            { label: 'Days', value: timeLeft.days },
+            { label: 'Hours', value: timeLeft.hours },
+            { label: 'Min', value: timeLeft.minutes },
+            { label: 'Sec', value: timeLeft.seconds },
+          ].map((item) => (
+            <div
+              key={item.label}
+              className="px-4 py-3 rounded-xl bg-card/50 border border-primary/30 backdrop-blur-sm text-center min-w-[80px]"
+            >
+              <div className="text-2xl font-bold text-primary text-glow">
+                {String(item.value).padStart(2, '0')}
+              </div>
+              <div className="text-xs text-muted-foreground uppercase tracking-widest">
+                {item.label}
+              </div>
+            </div>
+          ))}
+        </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -91,7 +156,7 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.7 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
-          <Button 
+          <Button
             onClick={scrollToRegister}
             size="lg"
             className="bg-primary text-primary-foreground hover:bg-primary/90 font-display text-lg px-8 py-6 neon-hover pulse-glow"
@@ -99,10 +164,15 @@ const HeroSection = () => {
             <Terminal className="w-5 h-5 mr-2" />
             Register Now - ₹150
           </Button>
-          <Button 
+
+          <Button
             variant="outline"
             size="lg"
-            onClick={() => document.getElementById('schedule')?.scrollIntoView({ behavior: 'smooth' })}
+            onClick={() =>
+              document
+                .getElementById('schedule')
+                ?.scrollIntoView({ behavior: 'smooth' })
+            }
             className="border-secondary text-secondary hover:bg-secondary/10 font-display text-lg px-8 py-6"
           >
             View Schedule
@@ -119,7 +189,7 @@ const HeroSection = () => {
         </motion.div>
       </div>
 
-      {/* Gradient overlays */}
+      {/* 🌈 Gradients */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background z-10 pointer-events-none" />
       <div className="absolute top-0 left-0 w-1/2 h-1/2 bg-gradient-radial from-primary/10 to-transparent blur-3xl z-0" />
       <div className="absolute bottom-0 right-0 w-1/2 h-1/2 bg-gradient-radial from-secondary/10 to-transparent blur-3xl z-0" />
