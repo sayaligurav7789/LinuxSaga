@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -273,4 +274,104 @@
 ::selection {
   background: hsl(var(--primary) / 0.3);
   color: hsl(var(--primary));
+}
+
+/*  HACKED GREEN CURSOR */
+
+/* Default cursor (arrow) */
+* {
+  cursor: url("http://www.rw-designer.com/cursor-extern.php?id=144084"), auto;
+}
+
+/* Hand cursor for clickable elements */
+button,
+a,
+input,
+select,
+textarea,
+[role="button"],
+.cursor-pointer,
+button:hover,
+a:hover {
+  cursor: url("http://www.rw-designer.com/cursor-extern.php?id=144099"), pointer !important;
+}
+
+/*  TECHFEST STYLE GLITCH */
+
+.techfest-title {
+  font-family: 'Oxanium', sans-serif;
+  font-style: italic;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  position: relative;
+  display: inline-block;
+}
+
+/* Main clean layer */
+.techfest-glitch {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+
+/* RGB layers */
+.techfest-glitch::before,
+.techfest-glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+}
+
+/* CYAN slice */
+.techfest-glitch::before {
+  top: -2px;
+  color: #00eaff;
+  clip-path: inset(0 0 55% 0);
+  animation: techfest-glitch-top 2.4s infinite linear;
+}
+
+/* MAGENTA slice */
+.techfest-glitch::after {
+  top: 2px;
+  color: #ff3ad7;
+  clip-path: inset(55% 0 0 0);
+  animation: techfest-glitch-bottom 1.7s infinite linear;
+}
+
+/* Animations */
+@keyframes techfest-glitch-top {
+  0% { transform: translateX(0); }
+  10% { transform: translateX(-6px); }
+  20% { transform: translateX(6px); }
+  30% { transform: translateX(-4px); }
+  40% { transform: translateX(8px); }
+  50% { transform: translateX(0); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes techfest-glitch-bottom {
+  0% { transform: translateX(0); }
+  15% { transform: translateX(8px); }
+  25% { transform: translateX(-6px); }
+  35% { transform: translateX(4px); }
+  45% { transform: translateX(-8px); }
+  55% { transform: translateX(0); }
+  100% { transform: translateX(0); }
+}
+
+/* Scanline overlay */
+.techfest-scanlines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.05),
+    rgba(255,255,255,0.05) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  pointer-events: none;
 }
