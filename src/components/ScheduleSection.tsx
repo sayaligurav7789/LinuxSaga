@@ -1,100 +1,96 @@
 import { motion } from 'framer-motion';
 import { Terminal, Cpu, FolderTree, Globe } from 'lucide-react';
+
 import HackerReveal from './HackerReveal';
 import GlitchText from './GlitchText';
 import DataStreamEffect from './DataStreamEffect';
 
 const ScheduleSection = () => {
-  const schedule = [
+  const sessions = [
     {
-      day: 'Day 1',
-      date: '3rd February',
-      sessions: [
-        {
-          title: 'Born to Boot',
-          icon: Terminal,
-          color: 'border-primary',
-          iconColor: 'text-primary',
-          topics: [
-            'Linux basics',
-            'Open-source concepts',
-            'Operating System vs Kernel',
-            'Real-life usage of Linux'
-          ]
-        },
-        {
-          title: 'Command Quest',
-          icon: Cpu,
-          color: 'border-secondary',
-          iconColor: 'text-secondary',
-          topics: [
-            'Essential Linux commands',
-            'Linux booting process',
-            'Text editors (vi, nano)',
-            'Process management'
-          ]
-        }
-      ]
+      title: 'Born to Boot',
+      icon: Terminal,
+      color: 'border-primary',
+      iconColor: 'text-primary',
+      date: '3rd Feb | Day 1',
+      video: '/penguin-coding.mp4',
+      topics: [
+        'Linux basics',
+        'Open-source concepts',
+        'Operating System vs Kernel',
+        'Real-life usage of Linux',
+      ],
     },
     {
-      day: 'Day 2',
-      date: '4th February',
-      sessions: [
-        {
-          title: 'Files, Folders & Fortresses',
-          icon: FolderTree,
-          color: 'border-accent',
-          iconColor: 'text-accent',
-          topics: [
-            'Linux file system structure',
-            'Directories and hierarchy',
-            'User and group permissions'
-          ]
-        },
-        {
-          title: 'Network Nexus',
-          icon: Globe,
-          color: 'border-primary',
-          iconColor: 'text-primary',
-          badge: 'LIVE DEMO',
-          topics: [
-            'Networking fundamentals',
-            'SSH (Secure Shell)',
-            'UFW firewall basics',
-            'Metasploit demonstration'
-          ]
-        }
-      ]
-    }
+      title: 'Command Quest',
+      icon: Cpu,
+      color: 'border-secondary',
+      iconColor: 'text-secondary',
+      date: '3rd Feb | Day 1',
+      video: '/penguin-hardware.mp4', 
+      topics: [
+        'Essential Linux commands',
+        'Linux booting process',
+        'Text editors (vi, nano)',
+        'Process management',
+      ],
+    },
+    {
+      title: 'Files, Folders & Fortresses',
+      icon: FolderTree,
+      color: 'border-accent',
+      iconColor: 'text-accent',
+      date: '4th Feb | Day 2',
+      video: '/penguin-security.mp4',
+      topics: [
+        'Linux file system structure',
+        'Directories and hierarchy',
+        'User and group permissions',
+      ],
+    },
+    {
+      title: 'Network Nexus',
+      icon: Globe,
+      color: 'border-primary',
+      iconColor: 'text-primary',
+      date: '4th Feb | Day 2',
+      video: '/penguin-coding.mp4',
+      badge: 'LIVE DEMO',
+      topics: [
+        'Networking fundamentals',
+        'SSH (Secure Shell)',
+        'UFW firewall basics',
+        'Metasploit demonstration',
+      ],
+    },
   ];
 
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
+      transition: { staggerChildren: 0.2 },
+    },
   };
 
-  const topicVariants = {
-    hidden: { opacity: 0, x: -20, filter: 'blur(4px)' },
-    visible: { 
-      opacity: 1, 
-      x: 0, 
-      filter: 'blur(0px)',
-      transition: { duration: 0.3 }
-    }
+  const itemVariants = {
+    hidden: { opacity: 0, x: -50 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.5, type: 'spring', stiffness: 100 },
+    },
   };
 
   return (
     <section id="schedule" className="py-24 relative overflow-hidden">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 max-w-6xl">
         <HackerReveal effect="decrypt" className="text-center mb-16">
           <h2 className="font-display text-3xl md:text-5xl font-bold mb-4">
             <span className="text-muted-foreground">$</span>{' '}
-            <GlitchText className="text-primary text-glow-sm" glitchIntensity="high">ls</GlitchText>{' '}
+            <GlitchText className="text-primary text-glow-sm" glitchIntensity="high">
+              ls
+            </GlitchText>{' '}
             <span className="text-secondary">-la</span>{' '}
             <span className="text-foreground">schedule/</span>
           </h2>
@@ -103,145 +99,110 @@ const ScheduleSection = () => {
           </p>
         </HackerReveal>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {schedule.map((day, dayIndex) => (
-            <DataStreamEffect key={day.day} streamCount={8}>
-              <HackerReveal effect="matrix" delay={dayIndex * 0.2}>
-                <div className="cyber-card rounded-lg overflow-hidden group">
-                  {/* Day header with animated border */}
-                  <motion.div 
-                    className="p-6 border-b border-border relative overflow-hidden"
-                    whileHover={{ backgroundColor: 'hsl(var(--muted) / 0.3)' }}
-                  >
-                    <motion.div 
-                      className="absolute bottom-0 left-0 h-px bg-gradient-to-r from-primary via-secondary to-primary"
-                      initial={{ width: 0 }}
-                      whileInView={{ width: '100%' }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 1, delay: 0.5 + dayIndex * 0.2 }}
-                    />
-                    <div className="flex items-center justify-between">
-                      <motion.h3 
-                        className="font-display text-2xl font-bold text-primary"
-                        whileHover={{ textShadow: '0 0 20px hsl(var(--primary))' }}
-                      >
-                        {day.day}
-                      </motion.h3>
-                      <motion.span 
-                        className="text-muted-foreground text-sm bg-muted px-3 py-1 rounded"
-                        whileHover={{ scale: 1.05, backgroundColor: 'hsl(var(--primary) / 0.2)' }}
-                      >
-                        {day.date}
-                      </motion.span>
-                    </div>
-                  </motion.div>
+        <div className="relative">
+          {/* Timeline line */}
+          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary via-secondary to-accent opacity-30 md:-translate-x-1/2" />
 
-                  <div className="p-6 space-y-6">
-                    {day.sessions.map((session, sessionIndex) => (
-                      <motion.div
-                        key={session.title}
-                        initial={{ opacity: 0, x: -30 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ 
-                          duration: 0.5, 
-                          delay: 0.4 + sessionIndex * 0.15,
-                          type: "spring",
-                          stiffness: 100
-                        }}
-                        className={`border-l-2 ${session.color} pl-4 relative`}
-                      >
-                        {/* Animated pulse on border */}
-                        <motion.div 
-                          className={`absolute left-0 top-0 w-0.5 bg-gradient-to-b ${
-                            session.color === 'border-primary' ? 'from-primary to-transparent' :
-                            session.color === 'border-secondary' ? 'from-secondary to-transparent' :
-                            'from-accent to-transparent'
-                          }`}
-                          initial={{ height: 0 }}
-                          whileInView={{ height: '100%' }}
-                          viewport={{ once: true }}
-                          transition={{ duration: 0.6, delay: 0.6 + sessionIndex * 0.1 }}
-                        />
-                        
-                        <div className="flex items-center gap-3 mb-3">
-                          <motion.div
-                            whileHover={{ rotate: 360, scale: 1.2 }}
-                            transition={{ duration: 0.5 }}
-                          >
-                            <session.icon className={`w-5 h-5 ${session.iconColor}`} />
-                          </motion.div>
-                          <h4 className="font-display text-lg font-semibold text-foreground">
+          <motion.div
+            className="space-y-12"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-100px' }}
+          >
+            {sessions.map((session, index) => (
+              <motion.div
+                key={session.title}
+                variants={itemVariants}
+                className={`relative flex flex-col md:flex-row items-start md:items-center ${
+                  index % 2 === 0 ? 'md:flex-row-reverse' : ''
+                }`}
+              >
+                {/* Timeline dot */}
+                <div className="absolute left-4 md:left-1/2 w-3 h-3 rounded-full bg-background border-2 border-primary z-10 md:-translate-x-1/2 mt-6 md:mt-0 shadow-[0_0_10px_hsl(var(--primary))]" />
+
+                {/* Card */}
+                <div
+                  className={`w-full md:w-[45%] pl-12 md:pl-0 ${
+                    index % 2 === 0 ? 'md:pr-12' : 'md:pl-12'
+                  }`}
+                >
+                  <DataStreamEffect streamCount={5}>
+                    <div
+                      className={`cyber-card rounded-lg p-6 border-l-4 ${session.color} hover:shadow-neon transition-all duration-300 group`}
+                    >
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="flex items-center gap-3">
+                          <session.icon className={`w-6 h-6 ${session.iconColor}`} />
+                          <h3 className="font-display text-xl font-bold group-hover:text-primary transition-colors">
                             {session.title}
-                          </h4>
-                          {session.badge && (
-                            <motion.span 
-                              className="text-xs bg-primary/20 text-primary px-2 py-0.5 rounded"
-                              animate={{ 
-                                boxShadow: [
-                                  '0 0 5px hsl(var(--primary) / 0.5)',
-                                  '0 0 15px hsl(var(--primary) / 0.8)',
-                                  '0 0 5px hsl(var(--primary) / 0.5)'
-                                ]
-                              }}
-                              transition={{ duration: 1.5, repeat: Infinity }}
-                            >
-                              {session.badge}
-                            </motion.span>
-                          )}
+                          </h3>
                         </div>
-                        
-                        <motion.ul 
-                          className="space-y-2"
-                          variants={containerVariants}
-                          initial="hidden"
-                          whileInView="visible"
-                          viewport={{ once: true }}
-                        >
-                          {session.topics.map((topic, topicIndex) => (
-                            <motion.li 
-                              key={topic} 
-                              className="text-muted-foreground text-sm flex items-center gap-2 group/topic"
-                              variants={topicVariants}
-                              custom={topicIndex}
-                            >
-                              <motion.span 
-                                className="text-primary"
-                                whileHover={{ x: 5 }}
-                              >
-                                →
-                              </motion.span>
-                              <span className="group-hover/topic:text-foreground transition-colors">
-                                {topic}
-                              </span>
-                            </motion.li>
-                          ))}
-                        </motion.ul>
-                      </motion.div>
-                    ))}
-                  </div>
+                        {session.badge && (
+                          <span className="text-[10px] font-bold bg-primary/20 text-primary px-2 py-1 rounded-sm animate-pulse shadow-[0_0_10px_hsl(var(--primary)/0.3)]">
+                            {session.badge}
+                          </span>
+                        )}
+                      </div>
+
+                      <div className="mb-4">
+                        <span className="text-xs font-mono text-muted-foreground bg-muted/50 px-2 py-1 rounded">
+                          {session.date}
+                        </span>
+                      </div>
+
+                      <ul className="space-y-2">
+                        {session.topics.map((topic) => (
+                          <li
+                            key={topic}
+                            className="text-sm text-muted-foreground flex items-center gap-2"
+                          >
+                            <span className="text-primary text-xs">»</span>
+                            {topic}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </DataStreamEffect>
                 </div>
-              </HackerReveal>
-            </DataStreamEffect>
-          ))}
+
+                {/* Media side */}
+                <div className="hidden md:flex md:w-[45%] justify-center items-center">
+                  {session.video && (
+                    <motion.div
+                      animate={{
+                        y: [0, -10, 0],
+                        filter: [
+                          'drop-shadow(0 0 10px rgba(74, 222, 128, 0.2))',
+                          'drop-shadow(0 0 20px rgba(74, 222, 128, 0.4))',
+                          'drop-shadow(0 0 10px rgba(74, 222, 128, 0.2))',
+                        ],
+                      }}
+                      transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+                      className="relative w-80 h-80 md:w-[520px] md:h-[520px] opacity-90 hover:opacity-100 transition-all duration-500"
+                    >
+                      <video
+                        src={session.video}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        className="w-full h-full object-contain mix-blend-screen"
+                      />
+
+                      <div className="absolute inset-0 bg-primary/5 rounded-full blur-3xl -z-10" />
+                    </motion.div>
+                  )}
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </div>
 
-      {/* Animated background lines */}
-      <motion.div 
-        className="absolute top-1/2 left-0 w-px h-1/2 bg-gradient-to-b from-primary/50 to-transparent"
-        initial={{ height: 0 }}
-        whileInView={{ height: '50%' }}
-        viewport={{ once: true }}
-        transition={{ duration: 1 }}
-      />
-      <motion.div 
-        className="absolute top-1/2 right-0 w-px h-1/2 bg-gradient-to-b from-secondary/50 to-transparent"
-        initial={{ height: 0 }}
-        whileInView={{ height: '50%' }}
-        viewport={{ once: true }}
-        transition={{ duration: 1, delay: 0.3 }}
-      />
+      {/* Background glow */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-[100px]" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/5 rounded-full blur-[100px]" />
     </section>
   );
 };
