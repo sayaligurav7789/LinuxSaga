@@ -5,6 +5,10 @@ import HackerReveal from './HackerReveal';
 import GlitchText from './GlitchText';
 import DataStreamEffect from './DataStreamEffect';
 
+import penguinCoding from '../assets/penguin-coding.mp4';
+import penguinHardware from '../assets/penguin-hardware.mp4';
+import penguinSecurity from '../assets/penguin-security.mp4';
+
 const ScheduleSection = () => {
   const sessions = [
     {
@@ -13,7 +17,7 @@ const ScheduleSection = () => {
       color: 'border-primary',
       iconColor: 'text-primary',
       date: '3rd Feb | Day 1',
-      video: '/penguin-coding.mp4',
+      video: penguinCoding,
       topics: [
         'Linux basics',
         'Open-source concepts',
@@ -27,7 +31,7 @@ const ScheduleSection = () => {
       color: 'border-secondary',
       iconColor: 'text-secondary',
       date: '3rd Feb | Day 1',
-      video: '/penguin-hardware.mp4', 
+      video: penguinHardware,
       topics: [
         'Essential Linux commands',
         'Linux booting process',
@@ -41,7 +45,7 @@ const ScheduleSection = () => {
       color: 'border-accent',
       iconColor: 'text-accent',
       date: '4th Feb | Day 2',
-      video: '/penguin-security.mp4',
+      video: penguinSecurity,
       topics: [
         'Linux file system structure',
         'Directories and hierarchy',
@@ -54,7 +58,7 @@ const ScheduleSection = () => {
       color: 'border-primary',
       iconColor: 'text-primary',
       date: '4th Feb | Day 2',
-      video: '/penguin-coding.mp4',
+      video: penguinCoding,
       badge: 'LIVE DEMO',
       topics: [
         'Networking fundamentals',
