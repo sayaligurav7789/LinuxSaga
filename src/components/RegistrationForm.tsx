@@ -44,8 +44,8 @@ const RegistrationForm = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
+  e.preventDefault();
+
     if (!paymentFile) {
       toast({
         title: "Payment screenshot required",
@@ -56,24 +56,49 @@ const RegistrationForm = () => {
     }
 
     setIsSubmitting(true);
-    
-    // Simulate submission
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    toast({
-      title: "Registration Successful! 🎉",
-      description: "Welcome to LinuxSaga 1.0! Check your email for confirmation.",
-    });
-    
-    setFormData({
-      fullName: '',
-      email: '',
-      phone: '',
-      college: '',
-      experience: 'beginner'
-    });
-    setPaymentFile(null);
-    setIsSubmitting(false);
+
+    try {
+      const form = new FormData();
+
+      // key must be "image"
+      form.append("image", paymentFile);
+
+      // append all form fields
+      Object.entries(formData).forEach(([key, value]) => {
+        form.append(key, value);
+      });
+
+      const res = await fetch("http://localhost:5000/register", {
+        method: "POST",
+        body: form
+      });
+
+      if (!res.ok) throw new Error("Submission failed");
+
+      toast({
+        title: "Registration Successful 🎉",
+        description: "Welcome to LinuxSaga 1.0!"
+      });
+
+      // Reset form
+      setFormData({
+        fullName: '',
+        email: '',
+        phone: '',
+        college: '',
+        experience: 'beginner'
+      });
+      setPaymentFile(null);
+
+    } catch (err) {
+      toast({
+        title: "Error",
+        description: "Failed to submit registration",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const formFieldVariants = {
