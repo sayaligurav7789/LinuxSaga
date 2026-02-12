@@ -8,6 +8,8 @@ import { toast } from '@/hooks/use-toast';
 import HackerReveal from './HackerReveal';
 import GlitchText from './GlitchText';
 import DataStreamEffect from './DataStreamEffect';
+import QRImage from '@/assets/QR.png';
+import PenguinImage from '@/assets/RegiPenguin.png';
 
 const RegistrationForm = () => {
   const [formData, setFormData] = useState({
@@ -126,9 +128,12 @@ const RegistrationForm = () => {
           </p>
         </HackerReveal>
 
-        <DataStreamEffect streamCount={10} className="max-w-2xl mx-auto">
+        <DataStreamEffect streamCount={10} className="max-w-5xl mx-auto">
           <HackerReveal effect="matrix" delay={0.2}>
-            <div className="cyber-card rounded-lg overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              {/* Form Section */}
+              <div className="lg:col-span-2">
+                <div className="cyber-card rounded-lg overflow-hidden">
               {/* Terminal header */}
               <motion.div 
                 className="p-4 border-b border-border flex items-center gap-2"
@@ -370,6 +375,100 @@ const RegistrationForm = () => {
                   </Button>
                 </motion.div>
               </form>
+            </div>
+              </div>
+
+              {/* QR Code Card */}
+              <motion.div
+                className="lg:col-span-1"
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4, duration: 0.5 }}
+              >
+                <div className="cyber-card rounded-lg overflow-hidden h-full flex flex-col items-center justify-center p-8">
+                  {/* Terminal header */}
+                  <motion.div 
+                    className="w-full p-4 border-b border-border flex items-center gap-2 -m-8 mb-8 px-8"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.5 }}
+                  >
+                    <div className="flex gap-1.5">
+                      <motion.span 
+                        className="w-3 h-3 rounded-full bg-destructive"
+                        animate={{ scale: [1, 1.2, 1] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                      />
+                      <motion.span 
+                        className="w-3 h-3 rounded-full bg-accent"
+                        animate={{ scale: [1, 1.2, 1] }}
+                        transition={{ duration: 2, repeat: Infinity, delay: 0.3 }}
+                      />
+                      <motion.span 
+                        className="w-3 h-3 rounded-full bg-primary"
+                        animate={{ scale: [1, 1.2, 1] }}
+                        transition={{ duration: 2, repeat: Infinity, delay: 0.6 }}
+                      />
+                    </div>
+                    <span className="text-muted-foreground text-sm ml-2">qr@payment:~</span>
+                  </motion.div>
+
+                  <div className="flex flex-col items-center justify-center gap-6 w-full">
+                    <motion.div
+                      initial={{ scale: 0.8, opacity: 0 }}
+                      whileInView={{ scale: 1, opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.6, type: "spring", stiffness: 100 }}
+                      className="relative p-4 rounded-lg"
+                    >
+                      <img
+                        src={PenguinImage}
+                        alt="Registration Penguin"
+                        className="w-48 h-auto relative z-10"
+                      />
+                    </motion.div>
+
+                    <motion.div
+                      initial={{ scale: 0.8, opacity: 0 }}
+                      whileInView={{ scale: 1, opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.65, type: "spring", stiffness: 100 }}
+                      className="relative p-4 bg-white rounded-lg"
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-secondary/20 rounded-lg" />
+                      <img
+                        src={QRImage}
+                        alt="Payment QR Code"
+                        className="w-48 h-48 relative z-10"
+                      />
+                    </motion.div>
+
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.7 }}
+                      className="text-center"
+                    >
+                      <h3 className="font-display text-lg font-bold text-primary mb-2">Payment QR Code</h3>
+                      <p className="text-muted-foreground text-sm">Scan to complete</p>
+                      <p className="text-muted-foreground text-sm">your registration payment</p>
+                    </motion.div>
+
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.8 }}
+                      className="flex items-center gap-2 p-3 rounded-lg bg-primary/10 border border-primary/30 w-full justify-center"
+                    >
+                      <p className="text-primary text-sm font-semibold">Amount: ₹150</p>
+                    </motion.div>
+                  </div>
+                </div>
+              </motion.div>
             </div>
           </HackerReveal>
         </DataStreamEffect>
