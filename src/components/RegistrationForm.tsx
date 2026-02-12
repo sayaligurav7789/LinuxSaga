@@ -421,12 +421,12 @@ const RegistrationForm = () => {
                       whileInView={{ scale: 1, opacity: 1 }}
                       viewport={{ once: true }}
                       transition={{ delay: 0.6, type: "spring", stiffness: 100 }}
-                      className="relative p-4 rounded-lg"
+                      className="relative p-6 rounded-lg"
                     >
                       <img
                         src={PenguinImage}
                         alt="Registration Penguin"
-                        className="w-48 h-auto relative z-10"
+                        className="w-52 md:w-60 lg:w-64 h-auto relative z-10"
                       />
                     </motion.div>
 
