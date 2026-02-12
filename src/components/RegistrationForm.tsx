@@ -70,10 +70,13 @@ const RegistrationForm = () => {
         form.append(key, value);
       });
 
-      const res = await fetch("http://localhost:5000/register", {
-        method: "POST",
-        body: form
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/register`,
+        {
+          method: "POST",
+          body: form
+        }
+      );
 
       if (!res.ok) throw new Error("Submission failed");
 
