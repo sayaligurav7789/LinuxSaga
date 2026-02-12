@@ -104,7 +104,7 @@ const ScheduleSection = () => {
                 {/* FLIP CARD */}
                 <div
                   className={`w-full md:w-[45%] pl-12 md:pl-0 ${
-                    index % 2 === 0 ? 'md:pr-12' : 'md:pl-12'
+                    index % 2 === 1 ? 'md:pr-12' : 'md:pl-12'
                   }`}
                 >
                   <DataStreamEffect streamCount={5}>
